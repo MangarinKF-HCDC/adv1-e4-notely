@@ -1,0 +1,103 @@
+﻿/* Keep login motion independent from field and greeting updates. */
+.login-shell .login-card {
+  animation: login-pane-reveal .7s cubic-bezier(.2,.7,.25,1) both;
+}
+
+.login-shell .art-copy {
+  animation: login-art-reveal .8s ease both;
+}
+
+.login-shell .errand-board {
+  animation: login-art-reveal .9s .15s ease both;
+}
+
+.login-shell .floating-note {
+  animation-name: login-note-bob;
+  animation-duration: 6s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.login-shell .floating-note strong {
+  font-size: clamp(11px,.9vw,14px);
+  line-height: 1.4;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.login-shell .floating-note small {
+  font-size: clamp(11px,.8vw,12px);
+  line-height: 1.4;
+  opacity: .8;
+}
+
+.login-shell .form-intro,
+.login-shell .login-card label,
+.login-shell .login-error {
+  font-size: 13px;
+}
+
+.login-shell .field-heading span {
+  font-size: 12px;
+}
+
+.login-shell .login-fields.shake[data-error-cycle="1"] {
+  animation: login-field-shake-a .4s ease;
+}
+
+.login-shell .login-fields.shake[data-error-cycle="0"] {
+  animation: login-field-shake-b .4s ease;
+}
+
+.login-shell .login-card input[aria-invalid="true"] {
+  border-color: #d43843;
+  box-shadow: 0 0 0 3px #d4384312;
+}
+
+.login-shell .login-error span.visible {
+  animation: login-error-reveal .25s ease both;
+}
+
+@keyframes login-pane-reveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes login-art-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes login-note-bob {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -12px; }
+}
+
+/* Alternate names restart the feedback even after consecutive invalid submits. */
+@keyframes login-field-shake-a {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-6px); }
+  40%,80% { transform: translateX(6px); }
+}
+
+@keyframes login-field-shake-b {
+  0%,100% { transform: translateX(0); }
+  20%,60% { transform: translateX(-6px); }
+  40%,80% { transform: translateX(6px); }
+}
+
+@keyframes login-error-reveal {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-shell .login-card,
+  .login-shell .art-copy,
+  .login-shell .errand-board,
+  .login-shell .floating-note,
+  .login-shell .login-fields.shake,
+  .login-shell .login-error span.visible {
+    animation: none;
+  }
+}

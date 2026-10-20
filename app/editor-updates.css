@@ -1,0 +1,66 @@
+﻿/* Keep expanded notes centered, with a compact row for writing controls. */
+.modal-backdrop .note-modal.expanded {
+  width: min(1160px, 100%);
+  height: min(760px, 85dvh);
+  max-height: 85dvh;
+  border-radius: 14px;
+}
+
+.note-modal .editor-options { flex: 0 0 auto; min-width: 0; }
+.note-modal .modal-color-panel { position: relative; }
+.note-modal .custom-colors-toggle { display: none; }
+.note-modal .font-size-menu button,
+.note-modal .modal-footer select,
+.note-modal .delete-note,
+.note-modal .cancel-button,
+.note-modal .save-button { font-size: 12px; }
+.note-modal .recent-row > span { width: auto; min-width: 45px; font-size: 11px; }
+.note-modal .custom-color-row > label:first-child { font-size: 10px; }
+.note-modal .custom-color-row > input { font-size: 12px; }
+.note-modal .hex-error,
+.note-modal .title-error { font-size: 12px; }
+.note-modal .tool-button small { font-size: 11px; }
+
+.note-rich-content ul[data-type="taskList"],
+.card-description ul[data-type="taskList"] { list-style: none; padding-left: 0; }
+.note-rich-content li[data-type="taskItem"],
+.card-description li[data-type="taskItem"] { display: flex; align-items: flex-start; gap: 9px; margin: 5px 0; }
+.note-rich-content li[data-type="taskItem"] > label,
+.card-description li[data-type="taskItem"] > label { flex: 0 0 auto; display: flex; align-items: center; margin-top: 5px; cursor: pointer; }
+.note-rich-content li[data-type="taskItem"] input,
+.card-description li[data-type="taskItem"] input { width: 16px; height: 16px; margin: 0; accent-color: #0b7d86; cursor: pointer; }
+.note-rich-content li[data-type="taskItem"] > div,
+.card-description li[data-type="taskItem"] > div { flex: 1; min-width: 0; }
+.note-rich-content li[data-checked="true"] > div,
+.card-description li[data-checked="true"] > div { text-decoration: line-through; opacity: .65; }
+.card-description li[data-type="taskItem"] input { pointer-events: none; }
+
+@media (min-width: 1100px) {
+  .note-modal.expanded .editor-options { display: flex; align-items: center; gap: 10px; padding: 5px 7px; border-radius: 8px; background: #ffffffa3; color: #40334b; }
+  .note-modal.expanded .rich-toolbar { flex-wrap: nowrap; padding: 0; background: transparent; }
+  .note-modal.expanded .modal-color-panel { display: flex; align-items: center; gap: 10px; margin: 0 0 0 auto; padding: 0; background: transparent; }
+  .note-modal.expanded .preset-row { display: flex; gap: 6px; padding: 4px; }
+  .note-modal.expanded .preset-row .color-swatch { width: 23px; height: 23px; }
+  .note-modal.expanded .custom-colors-toggle { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 5px; background: transparent; color: inherit; }
+  .note-modal.expanded .custom-colors-toggle:hover,
+  .note-modal.expanded .custom-colors-toggle[aria-expanded="true"] { background: #d4f1f3; color: #096a73; }
+  .note-modal.expanded .extra-color-controls { display: none; position: absolute; z-index: 10; right: 0; bottom: calc(100% + 12px); width: max-content; min-width: 240px; max-width: calc(100vw - 64px); padding: 8px 12px 3px; border: 1px solid #e3dce8; border-radius: 9px; background: #fff; color: #40334b; box-shadow: 0 8px 25px #2b1b3d24; }
+  .note-modal.expanded .extra-color-controls.open { display: block; }
+  .note-modal.expanded .extra-color-controls .recent-row { margin-top: 4px; }
+}
+
+@media (max-width: 600px) {
+  .modal-backdrop:has(.note-modal) { padding: 12px; }
+  .modal-backdrop .note-modal,
+  .modal-backdrop .note-modal.expanded { width: 100%; height: min(760px, calc(100dvh - 24px)); max-height: calc(100dvh - 24px); min-height: 0; border-radius: 14px; }
+  .note-modal .modal-main { padding: 1px 16px 12px; }
+  .note-modal .modal-footer { flex-wrap: wrap; flex-basis: auto; height: auto; min-height: 65px; gap: 8px; padding: 12px; }
+  .note-modal .modal-footer select { max-width: 140px; }
+  .note-modal .modal-footer-actions { margin-left: auto; }
+}
+
+@media (max-width: 360px) {
+  .note-modal .modal-main { padding-left: 12px; padding-right: 12px; }
+  .note-modal .color-swatch { width: 22px; }
+  .note-modal .preset-row { gap: 6px; grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}

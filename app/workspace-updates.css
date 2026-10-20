@@ -1,0 +1,102 @@
+/* Account, categories, note selection, and readable preview details. */
+.workspace .topbar-right { gap: 13px; }
+.account-menu { position: relative; }
+.account-trigger { display: flex; align-items: center; gap: 9px; padding: 5px 7px; border: 1px solid transparent; border-radius: 9px; background: transparent; }
+.account-trigger:hover, .account-trigger[aria-expanded="true"] { background: var(--surface-2); border-color: var(--border); }
+.account-name { max-width: 160px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; font-size: 13px; font-weight: 600; }
+.account-trigger > svg { color: var(--muted); transition: transform .18s; }
+.account-trigger .rotated { transform: rotate(180deg); }
+.account-dropdown { position: absolute; right: 0; top: calc(100% + 9px); width: 238px; padding: 7px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: 0 14px 45px #21112e26; z-index: 60; animation: fade .15s ease; }
+.account-identity { display: flex; flex-direction: column; gap: 4px; padding: 11px 10px 14px; margin-bottom: 5px; border-bottom: 1px solid var(--border); }
+.account-identity strong { font-size: 13px; }
+.account-identity span { font-size: 12px; color: var(--muted); overflow-wrap: anywhere; }
+.account-dropdown button { width: 100%; display: flex; align-items: center; gap: 10px; padding: 11px 10px; border: 0; border-radius: 7px; background: transparent; text-align: left; font-size: 13px; }
+.account-dropdown button:hover { background: var(--soft-teal); color: var(--teal); }
+.account-dropdown .account-logout { color: #cd4b55; }
+.category-list { display: grid; gap: 3px; }
+.category-nav-row { display: flex; align-items: center; gap: 3px; min-width: 0; }
+.category-nav-row .nav-item { flex: 1; min-width: 0; }
+.delete-category { display: grid; place-items: center; width: 27px; height: 30px; flex: 0 0 27px; padding: 0; border: 0; border-radius: 6px; color: var(--subtle); background: transparent; }
+.delete-category:hover { color: #c64b56; background: #e5484d12; }
+.sidebar.collapsed .delete-category { display: none; }
+.add-category-chip { flex: 0 0 43px; height: 49px; display: grid; place-items: center; border: 1px dashed var(--border); border-radius: 9px; background: transparent; color: var(--muted); }
+.category-dialog-backdrop { position: fixed; inset: 0; display: grid; place-items: center; z-index: 70; padding: 20px; background: #17101e75; backdrop-filter: blur(4px); }
+.category-delete-dialog { width: min(410px,100%); background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: 0 20px 80px #140d1e40; padding: 25px; }
+.category-delete-icon { display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: #e5484d12; color: #cd4b55; }
+.category-delete-dialog h2 { font: 600 19px/1.4 var(--font-title),sans-serif; margin: 16px 0 8px; }
+.category-delete-dialog p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted); }
+.category-delete-dialog > div { margin-top: 24px; display: flex; justify-content: flex-end; gap: 9px; }
+.category-delete-dialog button { border-radius: 7px; padding: 10px 13px; font-size: 12px; font-weight: 600; }
+.category-cancel { border: 1px solid var(--border); color: var(--muted); background: var(--surface); }
+.category-confirm-delete { border: 0; background: #c84350; color: #fff; }
+
+.workspace .note-tile { position: relative; overflow: visible; }
+.workspace .note-card { padding-top: 15px; }
+.preview-heading { display: flex; align-items: flex-start; gap: 7px; flex: 0 0 auto; min-width: 0; }
+.preview-title { flex: 1; min-width: 0; margin: 0; font: 700 17px/1.35 var(--font-title),sans-serif; letter-spacing: -.25px; display: block; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.preview-actions { display: flex; align-items: center; gap: 3px; flex: 0 0 auto; }
+.workspace .card-pin, .workspace .card-delete { opacity: 1; }
+.workspace .card-pin, .workspace .card-delete { width: 23px; height: 23px; }
+.workspace .card-pin:hover, .workspace .card-delete:hover { opacity: 1; background: #ffffff80; }
+.workspace .card-body { margin: 9px 0 12px; }
+.workspace .card-description { font-size: 12px; line-height: 1.6; }
+.workspace .card-bottom { font-size: 10px; }
+.note-selection { position: absolute; z-index: 3; top: -8px; left: -8px; display: grid; place-items: center; width: 23px; height: 23px; opacity: 0; transform: scale(.8); transition: opacity .15s,transform .15s; cursor: pointer; }
+.note-selection input { width: 21px; height: 21px; margin: 0; accent-color: var(--teal); cursor: pointer; border-radius: 5px; box-shadow: 0 0 0 3px var(--page); }
+.note-selection > span { display: none; }
+.note-tile:hover .note-selection, .note-tile:focus-within .note-selection, .note-tile.selection-mode .note-selection { opacity: 1; transform: scale(1); }
+.note-selected .note-card { box-shadow: 0 0 0 2px var(--teal),0 7px 17px #30213a20; }
+.has-selection .main-content { padding-bottom: 135px; }
+.selection-footer { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 40; width: max-content; max-width: calc(100% - 32px); display: flex; align-items: center; gap: 14px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 13px; color: var(--text); background: var(--surface); box-shadow: 0 12px 45px #21112e2b; animation: fade .15s ease; }
+.selection-count { white-space: nowrap; font-size: 13px; }
+.selection-tools { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.selection-tools button, .selection-clear { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 34px; padding: 0 9px; border: 0; border-radius: 6px; background: var(--surface-2); color: var(--muted); font-size: 12px; white-space: nowrap; }
+.selection-tools button:hover, .selection-clear:hover { color: var(--teal); background: var(--soft-teal); }
+.selection-tools .batch-delete { color: #c64b56; }
+.selection-tools select { width: 155px; height: 34px; padding: 0 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--surface); color: var(--text); font-size: 12px; }
+.selection-clear { padding: 0; width: 28px; flex: 0 0 28px; background: transparent; }
+.workspace .date-line { font-size: 10px; }
+.workspace .sidebar-section-title { font-size: 10px; letter-spacing: .8px; }
+.workspace .nav-item b, .workspace .category-chip b, .workspace .result-count { font-size: 11px; }
+.workspace .category-chip, .workspace .create-inline, .workspace .text-action { font-size: 12px; }
+.workspace .list-controls { font-size: 11px; }
+.workspace .welcome-sub { font-size: 13px; }
+.workspace .empty-state p { font-size: 12px; }
+@media (max-width: 767px) {
+  .workspace .topbar-right { gap: 5px; }
+  .account-trigger { gap: 6px; padding: 3px 0 3px 4px; }
+  .account-name { max-width: 82px; font-size: 12px; }
+  .account-dropdown { width: 228px; }
+  .sidebar.collapsed .delete-category { display: grid; }
+  .workspace .preview-title { font-size: 15px; }
+  .workspace .note-card { padding-top: 12px; }
+  .workspace .preview-heading { gap: 5px; }
+  .workspace .preview-actions { gap: 1px; }
+  .workspace .card-pin, .workspace .card-delete { width: 21px; height: 22px; }
+  .workspace .card-description { font-size: 11px; }
+  .workspace .card-bottom { font-size: 10px; }
+  .note-selection { opacity: 1; transform: scale(1); top: -7px; left: -5px; }
+  .note-selection input { width: 19px; height: 19px; }
+  .workspace .welcome-sub { font-size: 12px; }
+  .workspace .create-inline { font-size: 11px; }
+  .selection-footer { bottom: 10px; width: calc(100% - 20px); max-width: none; flex-wrap: wrap; gap: 8px; padding: 10px; }
+  .selection-count { flex: 1; }
+  .selection-clear { position: absolute; right: 9px; top: 7px; }
+  .selection-tools { width: 100%; }
+  .selection-tools button { flex: 1; min-width: 34px; padding: 0 6px; }
+  .selection-tools button span { display: none; }
+  .selection-tools select { flex: 2; min-width: 125px; width: auto; }
+  .has-selection .main-content { padding-bottom: 160px; }
+  .add-category-chip { height: 46px; }
+}
+@media (max-width: 360px) {
+  .account-name { max-width: 60px; }
+  .account-trigger .avatar { width: 27px; height: 27px; flex-basis: 27px; }
+  .workspace .preview-title { font-size: 14px; }
+  .selection-tools select { min-width: 115px; }
+}
+.sidebar-trash { margin-top: 22px; padding-top: 13px; border-top: 1px solid var(--border); }
+.workspace .welcome-row h1 { margin-top: 0; }
+.workspace .category-row .fixed-category { flex-shrink: 0; }
+.default-category-row .nav-item { width: 100%; }
+.category-folder { flex-shrink: 0; }

@@ -1,0 +1,154 @@
+/* Animate each changed property while preserving editor and menu DOM state. */
+.workspace .account-dropdown {
+  animation: none;
+  opacity: 0;
+  transform: translateY(-7px) scale(.98);
+  transform-origin: top right;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 0s linear 180ms;
+}
+.workspace .account-dropdown.open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+.workspace .account-trigger > svg { transition: transform 220ms ease; }
+
+.modal-backdrop .note-modal {
+  width: 100%;
+  max-width: 640px;
+  transition: max-width 320ms cubic-bezier(.22,.68,0,1.02), background-color 180ms ease, color 180ms ease;
+}
+.modal-backdrop .note-modal.expanded {
+  width: 100%;
+  max-width: 1160px;
+}
+
+
+@media (min-width: 768px) {
+  .workspace .sidebar {
+    transition: width 280ms ease, flex-basis 280ms ease, padding 280ms ease;
+  }
+  .workspace .sidebar .sidebar-actions {
+    position: relative;
+    display: block;
+    height: 42px;
+    margin-bottom: 22px;
+    transition: height 280ms ease, margin-bottom 280ms ease;
+  }
+  .workspace .sidebar.collapsed .sidebar-actions { height: 82px; margin-bottom: 20px; }
+  .workspace .sidebar .create-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 42px);
+    padding: 0 13px;
+    justify-content: flex-start;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: width 280ms ease, gap 280ms ease, background-color 160ms ease;
+  }
+  .workspace .sidebar.collapsed .create-button { width: 100%; gap: 0; }
+  .workspace .sidebar .create-button > svg { flex: 0 0 auto; }
+  .workspace .sidebar .sidebar-toggle {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    transition: top 280ms ease, right 280ms ease, background-color 160ms ease, color 160ms ease;
+  }
+  .workspace .sidebar.collapsed .sidebar-toggle { right: 6px; top: 50px; }
+  .workspace .sidebar .nav-item {
+    justify-content: flex-start;
+    transition: padding 280ms ease, gap 280ms ease, background-color 160ms ease, color 160ms ease;
+  }
+  .workspace .sidebar.collapsed .nav-item { padding: 0 13px; gap: 0; }
+  .workspace .sidebar .create-button > span,
+  .workspace .sidebar .nav-item > span,
+  .workspace .sidebar .nav-item > b,
+  .workspace .sidebar .sidebar-section-title > span {
+    display: block;
+    max-width: 190px;
+    opacity: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    visibility: visible;
+    transition: opacity 180ms ease, max-width 280ms ease, visibility 0s;
+  }
+  .workspace .sidebar.collapsed .create-button > span,
+  .workspace .sidebar.collapsed .nav-item > span,
+  .workspace .sidebar.collapsed .nav-item > b,
+  .workspace .sidebar.collapsed .sidebar-section-title > span {
+    max-width: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 120ms ease, max-width 280ms ease, visibility 0s linear 280ms;
+  }
+  .workspace .sidebar .category-nav-row { transition: gap 280ms ease; }
+  .workspace .sidebar.collapsed .category-nav-row { gap: 0; }
+  .workspace .sidebar .delete-category {
+    display: grid;
+    visibility: visible;
+    overflow: hidden;
+    transition: width 280ms ease, flex-basis 280ms ease, opacity 150ms ease, visibility 0s;
+  }
+  .workspace .sidebar.collapsed .delete-category {
+    display: grid;
+    width: 0;
+    flex-basis: 0;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: width 280ms ease, flex-basis 280ms ease, opacity 120ms ease, visibility 0s linear 280ms;
+  }
+  .workspace .sidebar .sidebar-section-title {
+    justify-content: space-between;
+    transition: margin 280ms ease;
+  }
+  .workspace .sidebar .sidebar-section-title > .tiny-icon { transition: transform 280ms ease; }
+  .workspace .sidebar.collapsed .sidebar-section-title > .tiny-icon { transform: translateX(-11px); }
+}
+
+@media (max-width: 767px) {
+  .workspace .sidebar,
+  .workspace .sidebar.collapsed {
+    visibility: hidden;
+    transform: translateX(-105%);
+    transition: transform 280ms cubic-bezier(.22,.68,0,1.02), visibility 0s linear 280ms;
+  }
+  .workspace .sidebar.mobile-open {
+    visibility: visible;
+    transform: translateX(0);
+    transition-delay: 0s;
+  }
+  .workspace .sidebar-overlay {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 240ms ease, visibility 0s linear 280ms;
+  }
+  .workspace .sidebar-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workspace .sidebar,
+  .workspace .sidebar *,
+  .workspace .sidebar-overlay,
+  .workspace .account-dropdown,
+  .workspace .account-trigger > svg,
+  .modal-backdrop,
+  .modal-backdrop .note-modal {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Keep all controls inside the note while its width is changing. */
+.modal-backdrop .note-modal.expanded .editor-options { flex-wrap: wrap; }
